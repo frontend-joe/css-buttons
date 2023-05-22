@@ -1,0 +1,106 @@
+:root {
+  --color-light: #79efff;
+  --color-dark: #71e0ef;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: #1c1e1f;
+  display: grid;
+  place-items: center;
+}
+
+button {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 64px;
+  padding: 0 38px 0 30px;
+  border: 0;
+  border-radius: 32px;
+  font-family: "Euclid Circular A", Poppins;
+  font-size: 18px;
+  font-weight: 500;
+  background: var(--color-light);
+  color: #0e1e25;
+}
+
+@keyframes loading {
+  0% {
+    transform: translateX(25px);
+  }
+  100% {
+    transform: translateX(-30px);
+  }
+}
+
+@keyframes spin {
+  100% {
+    rotate: 1turn;
+  }
+}
+
+button > :is(span, p) {
+  position: relative;
+  z-index: 3;
+}
+
+button::before,
+button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 300%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+button::before {
+  z-index: 1;
+  background: var(--color-light)
+    repeating-linear-gradient(
+      50deg,
+      transparent,
+      transparent 10px,
+      var(--color-dark) 10px,
+      var(--color-dark) 20px
+    );
+}
+
+button::after {
+  z-index: 2;
+  background: linear-gradient(var(--color-light) 30%, transparent 100%);
+}
+
+button::after {
+  z-index: 2;
+}
+
+button.loading:hover::before,
+button.loading:hover span {
+  animation-play-state: paused;
+}
+
+button.loading::before,
+button.loading::after {
+  opacity: 1;
+}
+
+button.loading::before {
+  animation: loading 0.6s infinite linear;
+}
+
+button.loading span {
+  animation: spin 0.6s infinite linear;
+}
